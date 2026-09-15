@@ -1,0 +1,43 @@
+# 贡献蛇动画：由 GitHub Action 自生成 SVG 并提交回仓库
+#
+# 为什么用这个方案：官方推荐的托管型动态组件（readme-stats / trophy / capsule-render）
+# 全部挂在 *.vercel.app 上，2026-09-15 实测在大陆不可达，直接贴链接会破图。
+# 走 Action 自生成 + raw.githubusercontent.com 加载，不依赖任何第三方图床，最稳。
+#
+# 放置位置（关键）：必须放在 **smiling66652/smiling66652 这个主页仓库**里
+#   路径：.github/workflows/snake.yml
+# 生成的分支：output（README 里引用的就是 output/snake.svg）
+# 首次运行：仓库 → Actions → 选 "Generate Snake" → Run workflow（约 1 分钟）
+# 之后每天 UTC 0 点自动更新。
+
+name: Generate Snake
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Generate snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/snake.svg
+            dist/snake-dark.svg?palette=github-dark
+
+      - name: Push to output branch
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
