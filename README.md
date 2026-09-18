@@ -5,7 +5,12 @@
   ⚠️ 已刻意排除：github-readme-stats / trophy / capsule-render / activity-graph —— 官方实例是 *.vercel.app，大陆打不开会破图
 -->
 
-<h1 align="center">江枫 · Jiang Feng</h1>
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
+    <img src="assets/banner.svg" alt="江枫 · Jiang Feng — 机械工程 → 电气 / 计算机" width="100%">
+  </picture>
+</p>
 
 <p align="center">
   <b>机械工程本科 → 转电气 / 计算机方向</b><br>
